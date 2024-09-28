@@ -1,11 +1,14 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify, flash
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 
 app = Flask(__name__)
 
+# Set a secret key for session management
+app.secret_key = 'your_unique_secret_key'  # Replace with a unique secret key
+
 # Set up the Google Sheets API
-SERVICE_ACCOUNT_FILE = 'credentials.json'  # Update with your JSON file path
+SERVICE_ACCOUNT_FILE = 'credentials.json'  # Path to your service account JSON file
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 # Create credentials using the service account
@@ -16,14 +19,17 @@ service = build('sheets', 'v4', credentials=credentials)
 
 # Replace with your Google Sheets ID and range
 SPREADSHEET_ID = '1lsquKezsrlneVMZe_KQW9ExlBr8hO_LhkSkMSlicv_U'  # Your spreadsheet ID
+RANGE_NAME = 'Sheet1'  # The sheet name or range to access
 
- # Update with your spreadsheet ID
-RANGE_NAME = 'Sheet1'  # Accesses all data in the sheet
+@app.route('/')
+def index():
+    # Render the main page
+    return render_template('index.html')
 
-
+# READ (CRUD)
 @app.route('/data', methods=['GET'])
 def get_data():
-    # Call the Sheets API
+    # Call the Sheets API to get data
     sheet = service.spreadsheets()
     result = sheet.values().get(spreadsheetId=SPREADSHEET_ID, range=RANGE_NAME).execute()
     values = result.get('values', [])
@@ -33,32 +39,21 @@ def get_data():
 
     return jsonify(values)
 
+# CREATE (CRUD) - Write data to Google Sheets
+def write_to_google_sheet(data):
+    # Define the sheet range where you want to add data
+    body = {'values': [data]}  # Data needs to be in a list of lists
+    
+    # Append the data to the sheet
+    result = service.spreadsheets().values().append(
+        spreadsheetId=SPREADSHEET_ID, range=RANGE_NAME,
+        valueInputOption="RAW", body=body).execute()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@app.route('/')
-def index():
-    return render_template('index.html')
+    return result
 
 @app.route('/submit', methods=['POST'])
 def submit():
+    # Extract data from the form
     email = request.form['floating_email']
     password = request.form['floating_password']
     repeat_password = request.form['repeat_password']
@@ -67,18 +62,16 @@ def submit():
     phone = request.form['floating_phone']
     company = request.form['floating_company']
 
-    # Here you can handle the form data, e.g., store it in a database, validate input, etc.
-    # For now, just printing the values
-    print(f"Email: {email}")
-    print(f"Password: {password}")
-    print(f"Repeat Password: {repeat_password}")
-    print(f"First Name: {first_name}")
-    print(f"Last Name: {last_name}")
-    print(f"Phone: {phone}")
-    print(f"Company: {company}")
+    # Prepare data to write to Google Sheets
+    data = [email, password, repeat_password, first_name, last_name, phone, company]
+    
+    # Write data to Google Sheets
+    result = write_to_google_sheet(data)
 
-    # Redirect to a success or confirmation page (optional)
-    return redirect(url_for('index'))
+    # Flash a success message to the user
+    flash('Form submitted successfully!')
+    return '<h1>Thank you for your response</h1>'
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
