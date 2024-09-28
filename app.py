@@ -1,14 +1,19 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify, flash
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
+import os
+from dotenv import load_dotenv
+
 
 app = Flask(__name__)
 
-# Set a secret key for session management
-app.secret_key = 'your_unique_secret_key'  # Replace with a unique secret key
+load_dotenv()# load environment variable
+
+# Set the secret key for session management
+app.secret_key = os.environ.get('FLASK_SECRET_KEY')
 
 # Set up the Google Sheets API
-SERVICE_ACCOUNT_FILE = 'credentials.json'  # Path to your service account JSON file
+SERVICE_ACCOUNT_FILE = os.environ.get('CONFIG_PATH')  # Path to your service account JSON file
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 # Create credentials using the service account
@@ -17,8 +22,8 @@ credentials = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes
 # Build the Sheets API service
 service = build('sheets', 'v4', credentials=credentials)
 
-# Replace with your Google Sheets ID and range
-SPREADSHEET_ID = '1lsquKezsrlneVMZe_KQW9ExlBr8hO_LhkSkMSlicv_U'  # Your spreadsheet ID
+# Google Sheets ID and range
+SPREADSHEET_ID = os.environ.get('SPREADSHEET_ID') 
 RANGE_NAME = 'Sheet1'  # The sheet name or range to access
 
 @app.route('/')
