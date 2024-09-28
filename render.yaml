@@ -1,0 +1,11 @@
+version: 1
+services:
+  - type: web
+    name: S3IE-SE
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python3 test.py
+    routes:
+      - src: /
+        dest: /
