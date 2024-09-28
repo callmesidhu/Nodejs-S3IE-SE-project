@@ -14,7 +14,7 @@ app.secret_key = os.environ.get('FLASK_SECRET_KEY')
 
 # Set up the Google Sheets API
 SERVICE_ACCOUNT_FILE = os.environ.get('CONFIG_PATH')  # Path to your service account JSON file
-SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
+SCOPES = [os.environ.get('GOOGLE_SHEET_API')]
 
 # Create credentials using the service account
 credentials = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
