@@ -1,0 +1,17 @@
+{
+  "name": "nodejs-s3ie-se-project",
+  "version": "1.0.0",
+  "description": "Submitted data from form is saved to google sheet",
+  "main": "index.js",
+  "scripts": {
+    "start": "node App.js",
+    "dev": "nodemon App.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.1",
+    "nodemon": "^3.1.7"
+  }
+}
