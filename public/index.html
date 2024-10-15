@@ -3,10 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Node.js App</title>
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
 </head>
-<body>
-    <h1>Welcome to My Node.js App!</h1>
-    <p>This page is served using Node.js and Express.</p>
+<body class="bg-gray-100 p-10">
+    <div class="max-w-lg mx-auto bg-white p-8 rounded shadow-md">
+        <h2 class="text-2xl font-semibold mb-6">Registration Form</h2>
+        <form action="#" method="POST">
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700">Name:</label>
+                <input type="text" id="name" name="name" required class="mt-1 block w-full p-2 border border-gray-300 rounded" placeholder="Enter your name">
+            </div>
+
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700">Email:</label>
+                <input type="email" id="email" name="email" required class="mt-1 block w-full p-2 border border-gray-300 rounded" placeholder="Enter your email">
+            </div>
+
+            <div class="mb-4">
+                <label for="phone" class="block text-gray-700">Phone:</label>
+                <input type="tel" id="phone" name="phone" required class="mt-1 block w-full p-2 border border-gray-300 rounded" placeholder="Enter your phone number">
+            </div>
+
+            <div class="mb-4">
+                <label for="department" class="block text-gray-700">Department:</label>
+                <select id="department" name="department" required class="mt-1 block w-full p-2 border border-gray-300 rounded">
+                    <option value="" disabled selected>Select your department</option>
+                    <option value="CSE">CSE</option>
+                    <option value="ECE">ECE</option>
+                    <option value="EEE">EEE</option>
+                    <option value="ME">ME</option>
+                    <option value="CIVIL">CIVIL</option>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label for="income" class="block text-gray-700">Family Income:</label>
+                <select id="income" name="income" required class="mt-1 block w-full p-2 border border-gray-300 rounded">
+                    <option value="" disabled selected>Select family income</option>
+                    <option value="less_than_50k">Less than 50k</option>
+                    <option value="50k_to_1lakh">50k to 1 lakh</option>
+                    <option value="1lakh_to_2.5lakh">1 lakh to 2.5 lakh</option>
+                    <option value="2.5lakh_to_5lakh">2.5 lakh to 5 lakh</option>
+                    <option value="above_5lakh">Above 5 lakh</option>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label for="family-size" class="block text-gray-700">Family Size:</label>
+                <select id="family-size" name="family-size" required class="mt-1 block w-full p-2 border border-gray-300 rounded">
+                    <option value="" disabled selected>Select family size</option>
+                    <option value="4_or_more">4 or more</option>
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <span class="block text-gray-700">Number of Vehicles:</span>
+                <div class="flex flex-col">
+                    <label><input type="checkbox" name="vehicles" value="none"> None</label>
+                    <label><input type="checkbox" name="vehicles" value="one"> 1</label>
+                    <label><input type="checkbox" name="vehicles" value="two"> 2</label>
+                    <label><input type="checkbox" name="vehicles" value="three_or_more"> 3 or more</label>
+                </div>
+            </div>
+
+            <div>
+                <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Submit</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
