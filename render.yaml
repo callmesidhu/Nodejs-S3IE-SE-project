@@ -1,11 +1,8 @@
-version: 1
 services:
   - type: web
-    name: S3IE-SE
+    name: flask-app
     env: python
     plan: free
-    buildCommand: pip install -r requirements.txt
-    startCommand: python3 test.py
-    routes:
-      - src: /
-        dest: /
+    region: oregon
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "flask run
