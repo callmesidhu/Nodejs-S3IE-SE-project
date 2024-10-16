@@ -1,7 +1,7 @@
 const { google } = require('googleapis');
 
 const SERVICE_ACCOUNT_FILE = 'configs/credentials.json';
-const SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly'];
+const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 
 const auth = new google.auth.GoogleAuth({
     keyFile: SERVICE_ACCOUNT_FILE,

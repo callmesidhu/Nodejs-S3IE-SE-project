@@ -9,7 +9,7 @@
 <body class="bg-gray-100 p-10">
     <div class="max-w-lg mx-auto bg-white p-8 rounded shadow-md">
         <h2 class="text-2xl font-semibold mb-6">Registration Form</h2>
-        <form action="#" method="POST">
+        <form action="/submit" method="post">
             <div class="mb-4">
                 <label for="name" class="block text-gray-700">Name:</label>
                 <input type="text" id="name" name="name" required class="mt-1 block w-full p-2 border border-gray-300 rounded" placeholder="Enter your name">
@@ -60,20 +60,11 @@
                 </select>
             </div>
 
-            <div class="mb-4">
-                <span class="block text-gray-700">Number of Vehicles:</span>
-                <div class="flex flex-col">
-                    <label><input type="checkbox" name="vehicles" value="none"> None</label>
-                    <label><input type="checkbox" name="vehicles" value="one"> 1</label>
-                    <label><input type="checkbox" name="vehicles" value="two"> 2</label>
-                    <label><input type="checkbox" name="vehicles" value="three_or_more"> 3 or more</label>
-                </div>
-            </div>
-
             <div>
                 <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Submit</button>
             </div>
         </form>
     </div>
 </body>
+
 </html>
